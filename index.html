@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SixtyFive – emulatore del Commodore 65</title>
+<meta name="description" content="Emulatore del Commodore 65 per Windows, verificato su un C65 vero. Con la OpenROM 65 libera e SixtyFive Studio per scrivere giochi.">
+<meta property="og:title" content="SixtyFive – emulatore del Commodore 65">
+<meta property="og:description" content="Emulatore del Commodore 65 per Windows, verificato su un C65 vero. Con la OpenROM 65 libera e SixtyFive Studio per scrivere giochi.">
+<meta property="og:image" content="assets/demo_title.png">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="alternate" hreflang="en" href="en/">
+<style>
+@font-face{font-family:"SixtyFive";src:url("assets/sixtyfive.ttf") format("truetype");font-display:swap}
+body{margin:0;background:#9999FF}
+a{color:#FFFF00}a:hover{color:#FFFFFF}
+img{image-rendering:pixelated}
+@keyframes lampeggio{0%,49%{opacity:1}50%,100%{opacity:0}}
+.cursore{animation:lampeggio 1s steps(1) infinite}
+
+@media (max-width:640px){
+body>div{padding:12px 8px!important}
+header,section,footer{padding-left:16px!important;padding-right:16px!important}
+section[aria-labelledby="t-fpga"]{margin-left:16px!important;margin-right:16px!important;padding:20px!important}
+h1{font-size:24px!important;line-height:32px!important}
+h2{font-size:24px!important;line-height:32px!important}
+header>a{font-size:24px!important}
+}
+div[style*="overflow-x: auto"]{max-width:100%;min-width:0}
+</style>
+</head>
+<body>
+
+<div style="font-family: SixtyFive, 'Courier New', monospace; font-size: 16px; line-height: 24px; color: #FFFFFF; background: #9999FF; padding: 32px 16px; box-sizing: border-box; min-height: 100vh">
+<div style="max-width: 1120px; margin: 0 auto; background: #0000FF; box-sizing: border-box; padding: 0 0 48px 0">
+
+<!-- barra in alto -->
+<header style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 24px 40px; border-bottom: 4px solid #9999FF">
+<a href="#inizio" style="font-size: 32px; line-height: 32px; color: #FFFFFF; text-decoration: none">SIXTYFIVE</a>
+<nav aria-label="Sezioni" style="display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center">
+<a href="#laboratorio">Laboratorio</a>
+<a href="#scarica">Scarica</a>
+<a href="#compatibilita">Compatibilità</a>
+<a href="#diario">Diario</a>
+<span style="color: #CCCCFF">IT / <a href="en/" lang="en" style="color: #CCCCFF">EN</a></span>
+</nav>
+</header>
+
+<!-- apertura, come la schermata di accensione -->
+<section id="inizio" style="display: flex; flex-wrap: wrap; gap: 40px; padding: 48px 40px; align-items: center">
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 24px">
+<div aria-hidden="true" style="display: flex; flex-direction: column; gap: 0; width: 192px">
+<div style="height: 12px; width: 192px; background: #FF0000; clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%)"></div>
+<div style="height: 12px; width: 180px; background: #FF7777; clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%)"></div>
+<div style="height: 12px; width: 168px; background: #FFFF00; clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%)"></div>
+<div style="height: 12px; width: 156px; background: #00FF00; clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%)"></div>
+<div style="height: 12px; width: 144px; background: #9999FF; clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%)"></div>
+<div style="height: 12px; width: 132px; background: #FF00FF; clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 100%, 0 100%)"></div>
+</div>
+<p style="margin: 0; color: #CCCCFF">EMULATORE DEL COMMODORE 65 PER WINDOWS</p>
+<h1 style="margin: 0; font-size: 40px; line-height: 48px; font-weight: normal; color: #FFFFFF">Il Commodore 65 che non è mai uscito, emulato e verificato su una macchina vera.</h1>
+<p style="margin: 0">SixtyFive riproduce il prototipo del 1991: VIC-III, due SID, DMAgic, drive F011. Il comportamento è confrontato con un C65 rev 2B funzionante.</p>
+<div style="display: flex; flex-wrap: wrap; gap: 16px">
+<a href="https://xenobiotical.itch.io/sixtyfive" style="display: inline-block; padding: 12px 20px; background: #FFFF00; color: #0000FF; text-decoration: none; min-height: 24px">Acquista su itch.io · 6,99 $</a>
+<a href="#scarica" style="display: inline-block; padding: 10px 18px; border: 2px solid #FFFFFF; color: #FFFFFF; text-decoration: none; min-height: 24px">OpenROM 65 gratis</a>
+</div>
+<p style="margin: 0">READY.<br><span class="cursore" aria-hidden="true" style="display: inline-block; width: 16px; height: 16px; background: #FFFFFF; vertical-align: middle"></span></p>
+</div>
+<figure style="flex: 1 1 420px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 8px">
+<div style="border: 4px solid #9999FF; background: #000000">
+<img src="assets/demo_title.png" alt="Schermata della demo SIXTYFIVE: il titolo a colori e i crediti" style="display: block; width: 100%; height: auto">
+</div>
+<figcaption style="color: #CCCCFF; font-size: 16px">La demo dell'emulatore, 256 colori dal VIC-III</figcaption>
+</figure>
+</section>
+
+<!-- perché è diverso -->
+<section aria-labelledby="t-diverso" style="padding: 24px 40px 48px 40px; display: flex; flex-direction: column; gap: 24px">
+<h2 id="t-diverso" style="margin: 0; font-size: 32px; line-height: 40px; font-weight: normal; color: #FFFF00">Perché è diverso</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+<div style="flex: 1 1 200px; min-width: 0; border: 2px solid #9999FF; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<h3 style="margin: 0; font-size: 16px; font-weight: normal; color: #FFFF00">PROVATO SUL C65 VERO</h3>
+<p style="margin: 0">Programmi di collaudo scritti apposta, eseguiti su un C65 rev 2B: le differenze trovate diventano correzioni.</p>
+</div>
+<div style="flex: 1 1 200px; min-width: 0; border: 2px solid #9999FF; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<h3 style="margin: 0; font-size: 16px; font-weight: normal; color: #FFFF00">DISCHETTI VERI</h3>
+<p style="margin: 0">Legge e scrive i floppy da 3,5" con il WAFFLE, oltre alle immagini .d81 e alla SD2IEC.</p>
+</div>
+<div style="flex: 1 1 200px; min-width: 0; border: 2px solid #9999FF; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<h3 style="margin: 0; font-size: 16px; font-weight: normal; color: #FFFF00">OPENROM 65</h3>
+<p style="margin: 0">Una ROM aperta scritta da zero: BASIC con grafica, suono, sprite e SAY. Nessun byte Commodore.</p>
+</div>
+<div style="flex: 1 1 200px; min-width: 0; border: 2px solid #9999FF; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<h3 style="margin: 0; font-size: 16px; font-weight: normal; color: #FFFF00">SIXTYFIVE STUDIO</h3>
+<p style="margin: 0">Giochi in assembly 4510: editor, foto a 64 colori, voci campionate, editor di livelli.</p>
+</div>
+</div>
+</section>
+
+<!-- galleria -->
+<section aria-labelledby="t-galleria" style="padding: 0 40px 48px 40px; display: flex; flex-direction: column; gap: 24px">
+<h2 id="t-galleria" style="margin: 0; font-size: 32px; line-height: 40px; font-weight: normal; color: #FFFF00">Sullo schermo</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+<figure style="flex: 1 1 300px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 8px">
+<img src="assets/orbit_spheres.png" alt="ORBIT: sfere che rimbalzano su un paesaggio al tramonto" style="display: block; width: 100%; height: auto; border: 2px solid #9999FF">
+<figcaption style="color: #CCCCFF">ORBIT, la demo</figcaption>
+</figure>
+<figure style="flex: 1 1 300px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 8px">
+<img src="assets/demo_plasma.png" alt="Effetto plasma a 256 colori" style="display: block; width: 100%; height: auto; border: 2px solid #9999FF">
+<figcaption style="color: #CCCCFF">Plasma a 256 colori</figcaption>
+</figure>
+<figure style="flex: 1 1 300px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 8px">
+<img src="assets/fotoevoce.png" alt="Una foto di una tazzina di caffè sui bitplane del VIC-III" style="display: block; width: 100%; height: auto; border: 2px solid #9999FF">
+<figcaption style="color: #CCCCFF">FOTOEVOCE: una foto a 48 colori</figcaption>
+</figure>
+<figure style="flex: 1 1 300px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 8px">
+<img src="assets/desk_windows.png" alt="DESK65: finestre, directory del disco e orologio" style="display: block; width: 100%; height: auto; border: 2px solid #9999FF">
+<figcaption style="color: #CCCCFF">DESK65, nella OpenROM 65</figcaption>
+</figure>
+<figure style="flex: 1 1 300px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 8px">
+<img src="assets/or_grafica.png" alt="Grafica del BASIC della OpenROM 65: cerchi, rettangoli e testo" style="display: block; width: 100%; height: auto; border: 2px solid #9999FF">
+<figcaption style="color: #CCCCFF">La grafica del BASIC 65</figcaption>
+</figure>
+<figure style="flex: 1 1 300px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 8px">
+<img src="assets/piattaforme.png" alt="PIATTAFORME: un eroe, monete e piattaforme di mattoni" style="display: block; width: 100%; height: auto; border: 2px solid #9999FF">
+<figcaption style="color: #CCCCFF">PIATTAFORME, fatto con lo Studio</figcaption>
+</figure>
+</div>
+</section>
+
+<!-- laboratorio -->
+<section id="laboratorio" aria-labelledby="t-lab" style="padding: 0 40px 48px 40px; display: flex; flex-wrap: wrap; gap: 40px">
+<div style="flex: 1 1 420px; min-width: 0; display: flex; flex-direction: column; gap: 16px">
+<h2 id="t-lab" style="margin: 0; font-size: 32px; line-height: 40px; font-weight: normal; color: #FFFF00">Il laboratorio</h2>
+<p style="margin: 0">Come si fa a sapere che un emulatore è fedele a una macchina mai prodotta? Si scrive un programma di prova, lo si esegue sul C65 vero, si fotografa lo schermo e si confronta.</p>
+<ul style="margin: 0; padding: 0 0 0 24px; display: flex; flex-direction: column; gap: 8px">
+<li>MEGATEST 65: i chip uno per uno, registri e comportamenti</li>
+<li>SUPERTEST: tempi, cicli, DMA e bitplane</li>
+<li>DIGITEST: i campioni audio sui due SID 8580</li>
+<li>CARICATEST: il caricamento dal disco durante il gioco</li>
+</ul>
+<p style="margin: 0">Ogni differenza diventa una correzione, annotata nel diario.</p>
+</div>
+<figure style="flex: 1 1 420px; min-width: 0; margin: 0; display: flex; flex-direction: column; gap: 8px">
+<div role="img" aria-label="Spazio per la foto del C65 aperto" style="border: 4px dashed #9999FF; min-height: 280px; display: flex; align-items: center; justify-content: center; padding: 24px; text-align: center; color: #CCCCFF">[FOTO DEL C65 REV 2B APERTO]</div>
+<figcaption style="color: #CCCCFF">Il C65 del laboratorio, rev 2B</figcaption>
+</figure>
+</section>
+
+<!-- scarica -->
+<section id="scarica" aria-labelledby="t-scarica" style="padding: 0 40px 48px 40px; display: flex; flex-direction: column; gap: 24px">
+<h2 id="t-scarica" style="margin: 0; font-size: 32px; line-height: 40px; font-weight: normal; color: #FFFF00">Scarica</h2>
+<div style="display: flex; flex-direction: column; gap: 0; border-top: 2px solid #9999FF">
+<div style="display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 2px solid #9999FF">
+<div style="flex: 1 1 320px; min-width: 0"><span style="color: #FFFF00">SIXTYFIVE 2.1</span> · l'emulatore, Windows 10/11 a 64 bit, aggiornamenti gratuiti</div>
+<a href="https://xenobiotical.itch.io/sixtyfive" style="padding: 8px 16px; background: #FFFF00; color: #0000FF; text-decoration: none">6,99 $ su itch.io</a>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 2px solid #9999FF">
+<div style="flex: 1 1 320px; min-width: 0"><span style="color: #FFFF00">OPENROM 65 1.1.3</span> · la ROM aperta, anche da bruciare su EPROM per il C65 vero</div>
+<a href="#scarica" style="padding: 6px 14px; border: 2px solid #FFFFFF; color: #FFFFFF; text-decoration: none">Gratis</a>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 2px solid #9999FF">
+<div style="flex: 1 1 320px; min-width: 0"><span style="color: #FFFF00">SIXTYFIVE STUDIO 1.2</span> · scrivere giochi per il C65</div>
+<a href="#scarica" style="padding: 6px 14px; border: 2px solid #FFFFFF; color: #FFFFFF; text-decoration: none">[PREZZO O GRATIS]</a>
+</div>
+<div style="display: flex; flex-wrap: wrap; gap: 8px 24px; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 2px solid #9999FF">
+<div style="flex: 1 1 320px; min-width: 0"><span style="color: #FFFF00">MANUALI</span> · oltre 100 pagine, in PDF</div>
+<div style="display: flex; flex-wrap: wrap; gap: 16px"><a href="#scarica">Italiano</a><a href="#scarica">English</a><a href="#scarica">Español</a><a href="#scarica">Deutsch</a></div>
+</div>
+</div>
+<p style="margin: 0; color: #CCCCFF">Le ROM Commodore non sono incluse: chi le possiede le copia nella cartella dell'emulatore.</p>
+</section>
+
+<!-- compatibilità -->
+<section id="compatibilita" aria-labelledby="t-compat" style="padding: 0 40px 48px 40px; display: flex; flex-direction: column; gap: 24px">
+<h2 id="t-compat" style="margin: 0; font-size: 32px; line-height: 40px; font-weight: normal; color: #FFFF00">Compatibilità</h2>
+<div style="overflow-x: auto">
+<table style="width: 100%; border-collapse: collapse; min-width: 560px">
+<thead>
+<tr><th scope="col" style="text-align: left; padding: 8px 12px; border-bottom: 2px solid #9999FF; font-weight: normal; color: #CCCCFF">PROGRAMMA</th><th scope="col" style="text-align: left; padding: 8px 12px; border-bottom: 2px solid #9999FF; font-weight: normal; color: #CCCCFF">TIPO</th><th scope="col" style="text-align: left; padding: 8px 12px; border-bottom: 2px solid #9999FF; font-weight: normal; color: #CCCCFF">STATO</th></tr>
+</thead>
+<tbody>
+<tr><td style="padding: 8px 12px; border-bottom: 1px solid #9999FF">ROM 911001 (la tua copia)</td><td style="padding: 8px 12px; border-bottom: 1px solid #9999FF">sistema</td><td style="padding: 8px 12px; border-bottom: 1px solid #9999FF; color: #00FF00">funziona</td></tr>
+<tr><td style="padding: 8px 12px; border-bottom: 1px solid #9999FF">OpenROM 65 e DESK65</td><td style="padding: 8px 12px; border-bottom: 1px solid #9999FF">sistema</td><td style="padding: 8px 12px; border-bottom: 1px solid #9999FF; color: #00FF00">funziona</td></tr>
+<tr><td style="padding: 8px 12px; border-bottom: 1px solid #9999FF">ORBIT</td><td style="padding: 8px 12px; border-bottom: 1px solid #9999FF">demo</td><td style="padding: 8px 12px; border-bottom: 1px solid #9999FF; color: #00FF00">funziona</td></tr>
+<tr><td style="padding: 8px 12px; border-bottom: 1px solid #9999FF">PIATTAFORME, FOTOEVOCE</td><td style="padding: 8px 12px; border-bottom: 1px solid #9999FF">giochi dello Studio</td><td style="padding: 8px 12px; border-bottom: 1px solid #9999FF; color: #00FF00">funziona</td></tr>
+<tr><td style="padding: 8px 12px; border-bottom: 1px solid #9999FF">[ALTRI PROGRAMMI PROVATI]</td><td style="padding: 8px 12px; border-bottom: 1px solid #9999FF">[TIPO]</td><td style="padding: 8px 12px; border-bottom: 1px solid #9999FF">[STATO]</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- diario -->
+<section id="diario" aria-labelledby="t-diario" style="padding: 0 40px 48px 40px; display: flex; flex-direction: column; gap: 24px">
+<h2 id="t-diario" style="margin: 0; font-size: 32px; line-height: 40px; font-weight: normal; color: #FFFF00">Dal diario</h2>
+<div style="display: flex; flex-wrap: wrap; gap: 24px">
+<article style="flex: 1 1 300px; min-width: 0; border: 2px solid #9999FF; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<p style="margin: 0; color: #CCCCFF">15/10/2026</p>
+<h3 style="margin: 0; font-size: 16px; font-weight: normal; color: #FFFF00">SIXTYFIVE STUDIO 1.2</h3>
+<p style="margin: 0">L'editor di livelli, le mappe di Tiled e il caricamento dal disco durante il gioco.</p>
+<a href="https://xenobiotical.itch.io/sixtyfive">Leggi →</a>
+</article>
+<article style="flex: 1 1 300px; min-width: 0; border: 2px solid #9999FF; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<p style="margin: 0; color: #CCCCFF">14/10/2026</p>
+<h3 style="margin: 0; font-size: 16px; font-weight: normal; color: #FFFF00">OPENROM 65 1.1</h3>
+<p style="margin: 0">Il BASIC della ROM aperta ha grafica, suono e sprite, provato sul C65 vero.</p>
+<a href="https://xenobiotical.itch.io/sixtyfive">Leggi →</a>
+</article>
+<article style="flex: 1 1 300px; min-width: 0; border: 2px dashed #9999FF; padding: 20px; display: flex; flex-direction: column; gap: 12px">
+<p style="margin: 0; color: #CCCCFF">[DATA]</p>
+<h3 style="margin: 0; font-size: 16px; font-weight: normal; color: #FFFF00">[PROSSIMO ARTICOLO]</h3>
+<p style="margin: 0">[DUE RIGHE DI RIASSUNTO]</p>
+</article>
+</div>
+<a href="https://xenobiotical.itch.io/sixtyfive">Tutti gli articoli su itch.io →</a>
+</section>
+
+<!-- prossimamente -->
+<section aria-labelledby="t-fpga" style="margin: 0 40px 48px 40px; padding: 32px; background: #000000; display: flex; flex-direction: column; gap: 12px">
+<p style="margin: 0; color: #00FF00">PROSSIMAMENTE</p>
+<h2 id="t-fpga" style="margin: 0; font-size: 32px; line-height: 40px; font-weight: normal; color: #FFFFFF">Il 4510 in FPGA</h2>
+<p style="margin: 0">La CPU del C65, dall'emulatore a una scheda che entra nello zoccolo della macchina vera. Il lavoro comincia dalle misure sul bus.</p>
+</section>
+
+<!-- piede -->
+<footer style="padding: 24px 40px 0 40px; border-top: 4px solid #9999FF; display: flex; flex-direction: column; gap: 8px; color: #FFFFFF">
+<p style="margin: 0">SixtyFive © 2026 Carlo Pastore · Beta tester: Fabrizio Picci (Faber Pixel)</p>
+<p style="margin: 0; color: #CCCCFF">Commodore e Commodore 65 sono marchi dei rispettivi proprietari. SixtyFive è un progetto indipendente.</p>
+<p style="margin: 0">READY.</p>
+</footer>
+
+</div>
+</div>
+</body>
+</html>
